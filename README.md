@@ -3,7 +3,7 @@
 Today I present you Layton, my bachelor's thesis (in progress). It's a **novel**
  machine learning-powered **Network Intrusion Detection System (NIDS)** designed for real-time **flow-level TCP/IP traffic classification**.
 
-Written in C as a multithreaded application, Layton captures packets using libpcap, extracts flow features mimicking **CIC-FlowMeter**, and uses a trained **XGBoost model** (exported to ONNX) to classify flows as **benign or malicious** — all in one lightweight pipeline. (Model nor data included).
+Written in C as a multithreaded application, Layton captures packets using libpcap, extracts flow features mimicking **CIC-FlowMeter**, and uses a trained **XGBoost model** (exported to ONNX) to classify flows as **benign or malicious** in real time — all in one lightweight pipeline. (Model nor data included).
 
 ---
 
@@ -11,7 +11,6 @@ Written in C as a multithreaded application, Layton captures packets using libpc
 
 - Real-time packet sniffing (TCP/IP)
 - Multithreaded architecture for optimal performance
-
 - Flow extraction & feature engineering (CIC-FlowMeter-style)
 - XGBoost-based binary classification (benign / malicious)
 
@@ -51,6 +50,7 @@ sudo apt-get install libpcap-dev libjson-c-dev cmake build-essential pkg-config
 sudo apt-get install libcriterion-dev
 
 # For ONNX Runtime, download from official releases, version used in the project is 1.21.1
+
 ```
 ### 3. Configuration
 Edit `config.json` to specify your network interface and the rest of parameters:
@@ -99,7 +99,7 @@ sudo bin/nids_backend
 
 Layton uses an **XGBoost binary classifier** trained on the **CIC-BCCC-TabularIoT-2024 dataset**, specifically designed for IoT network traffic analysis. The model achieves:
 
-- **High accuracy** in distinguishing benign vs malicious flows
+- **High accuracy** in distinguishing benign vs malicious flows (95% macro f1 score)
 - **Low latency** inference suitable for real-time processing  
 - **Compact size** when exported to ONNX format
 
